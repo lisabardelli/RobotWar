@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotWar", "RobotWar\RobotWar.csproj", "{B0FC7D34-7E8F-4AB3-919A-901012BBC401}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotWarTests", "RobotWarTests\RobotWarTests.csproj", "{32CE8ACD-92FE-48DA-8E00-0692DDD76284}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0FC7D34-7E8F-4AB3-919A-901012BBC401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0FC7D34-7E8F-4AB3-919A-901012BBC401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0FC7D34-7E8F-4AB3-919A-901012BBC401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0FC7D34-7E8F-4AB3-919A-901012BBC401}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32CE8ACD-92FE-48DA-8E00-0692DDD76284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32CE8ACD-92FE-48DA-8E00-0692DDD76284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32CE8ACD-92FE-48DA-8E00-0692DDD76284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32CE8ACD-92FE-48DA-8E00-0692DDD76284}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
