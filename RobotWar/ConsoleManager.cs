@@ -1,30 +1,16 @@
-using RW.Entities.Spot;
-
 namespace RW;
 
-internal abstract class ConsoleManager 
+public class ConsoleManager
 {
-    public static T BuildObject<T>(string promptMessage, Func<string, T> builder) where T : class?
+    public static string ReadUserInput(string promptMessage)
     {
-        while (true)
-        {
-            try
-            {
-                Console.WriteLine(promptMessage);
-                var input = Console.ReadLine();
-                var obj = builder(input);
-                if (obj == null) continue;
-                return obj;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Invalid Input: {e.Message}");
-            }
-        }
+        Console.WriteLine(promptMessage);
+        var input = Console.ReadLine();
+        return input;
     }
-    
-    public static void Print(string? promptMessage, Spot spot)
+
+    public static void Print(string promptMessage)
     {
-        Console.WriteLine(promptMessage + "ROBOT POSITION: " + $"{spot.Coordinates.X} {spot.Coordinates.Y} {(char)spot.Direction}");
+        Console.WriteLine(promptMessage);
     }
 }

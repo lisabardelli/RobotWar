@@ -2,10 +2,10 @@ namespace RW.Entities;
 
 public class Instruction
 {
-    public Instruction(string[] navigationInput)
+    public Instruction(char[] navigationInput)
     {
         NavigationInput = navigationInput;
     }
 
-    public string[] NavigationInput { get; set; }
+    public char[] NavigationInput { get; set; }
 }

@@ -1,5 +1,5 @@
 using FluentValidation;
-using RW.Entities.Spot;
+using RW.Entities;
 using RW.Validators;
 
 namespace RW.Builders;
@@ -15,7 +15,6 @@ public class SpotBuilder
 
     public Spot BuildSpot(string location)
     {
-        
         var validationResult = _locationValidator.Validate(location);
 
         if (!validationResult.IsValid)

@@ -1,6 +1,7 @@
-namespace RW.Entities.Spot;
+namespace RW.Entities;
 
-public static class CardinalPointExtensions {
+public static class CardinalPointExtensions
+{
     public static CardinalPoint FromShortString(string directionString)
     {
         return directionString.ToUpper() switch

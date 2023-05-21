@@ -3,27 +3,16 @@ using RW.Entities;
 
 namespace RW.Builders;
 
-public class RobotBuilder: IRobotBuilder
+public class RobotBuilder : IRobotBuilder
 {
-    public Robot BuildRobot( Arena arena, string location)
+    public Robot BuildRobot(Arena arena, string location)
     {
         var spotBuilder = new SpotBuilder();
         var robotLocation = spotBuilder.BuildSpot(location);
-        
-        if (!arena.IsSpotInsideArena(robotLocation.Coordinates))
-        {
-            throw new Exception("Spot outside of arena");
-        }
-        
-        if (arena.IsSpotAlreadyTaken(robotLocation.Coordinates))
-        {
-            throw new Exception("Spot is already taken.");
-        }
-        
-        var robot = new Robot(arena, robotLocation);
-        
-        ConsoleManager.Print(null, robot.Spot);
-      
+        var robot = new Robot(ref arena, robotLocation);
+
+        ConsoleManager.Print("ROBOT POSITION: " + $"{robot.Spot.Coordinates.X} {robot.Spot.Coordinates.Y} {(char)robot.Spot.Direction}");
+
         return robot;
     }
 }

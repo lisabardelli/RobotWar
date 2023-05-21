@@ -22,7 +22,7 @@ public class LocationValidatorTests
         // Assert
         Assert.True(result.IsValid);
     }
-    
+
     [Theory]
     [InlineData("t")]
     [InlineData("1 2")]
@@ -38,7 +38,7 @@ public class LocationValidatorTests
         Assert.Single(result.Errors);
         Assert.Equal("Input must contain three elements", result.Errors[0].ErrorMessage);
     }
-    
+
     [Fact]
     public void Validate_ShouldFail_WhenFirstElementIsInvalid()
     {
@@ -50,7 +50,7 @@ public class LocationValidatorTests
         Assert.Single(result.Errors);
         Assert.Equal("The first element of location must be an integer greater than 0.", result.Errors[0].ErrorMessage);
     }
-    
+
     [Fact]
     public void Validate_ShouldFail_WhenSecondElementIsInvalid()
     {
@@ -62,7 +62,7 @@ public class LocationValidatorTests
         Assert.Single(result.Errors);
         Assert.Equal("The second element of location must be an integer greater than 0.", result.Errors[0].ErrorMessage);
     }
-    
+
     [Fact]
     public void Validate_ShouldFail_WhenThirdElementIsInvalid()
     {

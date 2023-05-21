@@ -8,7 +8,7 @@ namespace RW.Builders;
 public class InstructionBuilder : IInstructionBuilder
 {
     private readonly IValidator<Instruction> _instructionValidator;
-    
+
     public InstructionBuilder()
     {
         _instructionValidator = new InstructionValidator();
@@ -18,7 +18,7 @@ public class InstructionBuilder : IInstructionBuilder
     {
         var navigationInstruction = new Instruction
         (
-            instruction.Select(x => new string(x, 1)).ToArray()
+            instruction.Select(char.ToUpper).ToArray()
         );
 
         var validationResult = _instructionValidator.Validate(navigationInstruction);

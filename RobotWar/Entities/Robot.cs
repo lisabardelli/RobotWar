@@ -1,87 +1,129 @@
-using RW.Entities.Spot;
 
 namespace RW.Entities;
 
 public class Robot : IRobot
 {
-    public Spot.Spot Spot { get; set; }
-    private Arena InitializedArena { get; set; } 
-   
-    public Robot(Arena arena, Spot.Spot spot)
+    public Spot Spot { get; private set; }
+    private Arena InitializedArena { get; }
+    private readonly LinkedList<CardinalPoint> _leftTurns;
+    private readonly LinkedList<CardinalPoint> _rightTurns;
+    private static Dictionary<CardinalPoint, Action<Coordinates>> _moveActions;
+
+
+    public Robot(ref Arena arena, Spot spot)
     {
         InitializedArena = arena;
         Spot = spot;
+
+        InitializedArena.TakeSpot(Spot.Coordinates);
+
+        _leftTurns = new LinkedList<CardinalPoint>(new[]
+        {
+            CardinalPoint.West,
+            CardinalPoint.South,
+            CardinalPoint.East,
+            CardinalPoint.North
+        });
+
+        _rightTurns = new LinkedList<CardinalPoint>(new[]
+        {
+            CardinalPoint.East,
+            CardinalPoint.South,
+            CardinalPoint.West,
+            CardinalPoint.North
+        });
+
+        _moveActions = new Dictionary<CardinalPoint, Action<Coordinates>>
+        {
+            { CardinalPoint.North, (coords) => coords.Y++ },
+            { CardinalPoint.East, (coords) => coords.X++ },
+            { CardinalPoint.South, (coords) => coords.Y-- },
+            { CardinalPoint.West, (coords) => coords.X-- }
+        };
     }
 
-    
-    public Spot.Spot ChangeSpot(Instruction instruction, Spot.Spot spot, Arena arena)
+
+    public void ChangeSpot(Instruction instruction)
     {
         foreach (var navigationInput in instruction.NavigationInput)
         {
-            switch (navigationInput.ToUpper())
+            var input = char.ToUpper(navigationInput);
+            switch (input)
             {
-                case "M":
-                    if (!TryMove(spot, arena))
+                case 'M':
+                    if (TryMove())
                     {
-                        return spot;
+                        MarkSpotAsTaken();
+                    }
+                    else
+                    {
+                        return;
                     }
                     break;
-                case "L":
-                    spot.Direction = spot.RotateLeft();
+                case 'L':
+                    Spot.Direction = RotateLeft();
                     break;
-                case "R":
-                    spot.Direction = spot.RotateRight();
+                case 'R':
+                    Spot.Direction = RotateRight();
                     break;
             }
         }
 
-        ConsoleManager.Print(null, spot);
-        MarkSpotAsTaken(spot, arena);
-
-        return spot;
+        ConsoleManager.Print("ROBOT POSITION: " + $"{Spot.Coordinates.X} {Spot.Coordinates.Y} {(char)Spot.Direction}");
     }
 
-    private static bool TryMove(Spot.Spot spot, Arena arena)
+    private bool TryMove()
     {
-        var initialCoordinates = new Coordinates(spot.Coordinates.X, spot.Coordinates.Y);
-        spot.Move();
-        var finalCoordinates = spot.Coordinates;
+        var finalSpot = CalculateFinalSpot();
 
-        if (!arena.IsSpotInsideArena(finalCoordinates))
-        {
-            UndoMove(spot, initialCoordinates);
-            ConsoleManager.Print("Robot cannot move further because it will move outside the arena. \n", spot);
-          
-            return false;
-        }
-        
-        if (arena.IsSpotAlreadyTaken(finalCoordinates))
-        {
-            UndoMove(spot, initialCoordinates);
-            ConsoleManager.Print("Robot cannot move further because the next spot is taken. \n", spot);
-            
-            return false;
-        }
-
-        arena.SquaresTaken.Remove(initialCoordinates);
+        if (!IsValidMove(finalSpot)) return false;
+        var initialCoordinates = new Coordinates(Spot.Coordinates);
+        Spot = finalSpot;
+        InitializedArena.RemoveSquare(initialCoordinates);
         return true;
     }
 
-    private static void UndoMove(Spot.Spot spot, Coordinates initialCoordinates)
+    private bool IsValidMove(Spot spot)
     {
-        spot.Coordinates = initialCoordinates;
+        if (!InitializedArena.IsSpotInsideArena(spot.Coordinates))
+        {
+            ConsoleManager.Print("Robot cannot move further because it will move outside the arena. \n" +
+                                 "ROBOT POSITION: " + $"{Spot.Coordinates.X} {Spot.Coordinates.Y} {(char)Spot.Direction}");
+            return false;
+        }
+
+        if (InitializedArena.IsSpotAlreadyTaken(spot.Coordinates))
+        { 
+            ConsoleManager.Print("Robot cannot move further because the next spot is taken. \n" +
+                                 "ROBOT POSITION: " + $"{Spot.Coordinates.X} {Spot.Coordinates.Y} {(char)Spot.Direction}");
+            return false;
+        }
+       
+        return true;
+
     }
 
-    private static void MarkSpotAsTaken(Spot.Spot spot, Arena arena)
+    private Spot CalculateFinalSpot()
     {
-        arena.SquaresTaken.Add(spot.Coordinates);
+        var tmpSpot = new Spot(Spot);
+        _moveActions[Spot.Direction](tmpSpot.Coordinates);
+        return tmpSpot;
+    }
+
+    private CardinalPoint RotateLeft()
+    {
+        var current = _leftTurns.Find(Spot.Direction);
+        return current?.Next?.Value ?? _leftTurns.First.Value;
+    }
+
+    private CardinalPoint RotateRight()
+    {
+        var current = _rightTurns.Find(Spot.Direction);
+        return current?.Next?.Value ?? _rightTurns.First.Value;
+    }
+
+    private void MarkSpotAsTaken()
+    {
+        InitializedArena.TakeSpot(Spot.Coordinates);
     }
 }
-
-
-
-
-
-
-
-

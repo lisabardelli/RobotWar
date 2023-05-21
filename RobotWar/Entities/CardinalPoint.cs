@@ -1,4 +1,4 @@
-namespace RW.Entities.Spot;
+namespace RW.Entities;
 
 public enum CardinalPoint
 {

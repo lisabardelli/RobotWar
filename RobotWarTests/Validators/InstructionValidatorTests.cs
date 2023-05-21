@@ -15,9 +15,9 @@ public class InstructionValidatorTests
     }
 
     [Theory]
-    [InlineData("L", "M", "R")]
-    [InlineData("l", "M", "R")]
-    public void NavigationInput_ShouldOnlyContain_L_M_R(params string[] instructions)
+    [InlineData('L', 'M', 'R')]
+    [InlineData('m', 'M', 'R')]
+    public void NavigationInput_ShouldOnlyContain_L_M_R(params char[] instructions)
     {
         // Arrange
         var instruction = new Instruction(instructions);
@@ -30,11 +30,11 @@ public class InstructionValidatorTests
     }
 
     [Theory]
-    [InlineData("L", "M", "T")]
-    [InlineData("L", "K", "M", "R", "R", "M")]
-    [InlineData("T")]
-    [InlineData("t")]
-    public void NavigationInput_ContainsInvalidInstructions_ShouldThrowException(params string[] instructions)
+    [InlineData('L', 'M', 'T')]
+    [InlineData('L', 'K', 'M', 'R', 'R', 'M')]
+    [InlineData('T')]
+    [InlineData('t')]
+    public void NavigationInput_ContainsInvalidInstructions_ShouldThrowException(params char[] instructions)
     {
         // Arrange
         var instruction = new Instruction(instructions);
@@ -44,7 +44,22 @@ public class InstructionValidatorTests
 
         // Assert
         Assert.False(result.IsValid);
-        Assert.Equal("Please only use: L,M,R", result.Errors.First().ErrorMessage);
+        Assert.Equal("Please only use: L, M, R", result.Errors.First().ErrorMessage);
     }
-    
+
+    [Theory]
+    [InlineData()]
+    public void NavigationInput_ContainsEmptyInstructions_ShouldThrowException(params char[] instructions)
+    {
+        // Arrange
+        var instruction = new Instruction(instructions);
+
+        // Act
+        var result = _validator.Validate(instruction);
+
+        // Assert
+        Assert.False(result.IsValid);
+        Assert.Equal("Navigation input cannot be empty", result.Errors.First().ErrorMessage);
+    }
+
 }

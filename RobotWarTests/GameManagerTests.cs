@@ -1,11 +1,11 @@
 using RW.Builders;
-using RW.Entities.Spot;
+using RW.Entities;
 using Xunit;
 using Assert = Xunit.Assert;
 
-namespace RobotWarTests.Builders;
+namespace RobotWarTests;
 
-public class GameBuilderTests
+public class GameManagerTests
 {
 
     [Fact]
@@ -20,11 +20,11 @@ public class GameBuilderTests
         var arena = arenaBuilder.BuildArena("5");
         var robot1 = robotBuilder.BuildRobot(arena, "1 2 N");
         var instruction1 = instructionBuilder.BuildInstruction("LMLMLMLMM");
-        robot1.ChangeSpot(instruction1, robot1.Spot, arena);
+        robot1.ChangeSpot(instruction1);
 
         var robot2 = robotBuilder.BuildRobot(arena, "3 3 E");
         var instruction2 = instructionBuilder.BuildInstruction("MMRMMRMRRM");
-        robot2.ChangeSpot(instruction2, robot2.Spot, arena);
+        robot2.ChangeSpot(instruction2);
 
         // Assert
         Assert.NotNull(robot1);

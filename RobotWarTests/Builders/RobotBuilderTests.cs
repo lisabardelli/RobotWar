@@ -1,7 +1,6 @@
 using RW.Builders;
 using RW.Builders.Interfaces;
 using RW.Entities;
-using RW.Entities.Spot;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -31,7 +30,7 @@ public class RobotBuilderTests
     {
         // Arrange
         var arena = new Arena("5");
-        arena.SquaresTaken.Add(new Coordinates(2, 3));
+        arena.TakeSpot(new Coordinates(2, 3));
         var location = "2 3 N";
 
         // Act and Assert

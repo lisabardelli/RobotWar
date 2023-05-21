@@ -13,9 +13,9 @@ public class ArenaBuilderTests
     {
         _arenaBuilder = new ArenaBuilder();
     }
-    
+
     [Theory]
-    [InlineData ("L")]
+    [InlineData("L")]
     [InlineData("")]
     [InlineData(" ")]
     public void BuildArena_Should_Throw_Exception_If_Input_Is_Not_An_Integer(string topRightCorner)
@@ -23,7 +23,7 @@ public class ArenaBuilderTests
         // Assert
         Assert.Throws<Exception>(() => _arenaBuilder.BuildArena(topRightCorner));
     }
-    
+
     [Fact]
     public void BuildArena_Should_Build_Arena()
     {

@@ -9,7 +9,7 @@ public class Program
         var arenaBuilder = new ArenaBuilder();
         var robotBuilder = new RobotBuilder();
         var instructionBuilder = new InstructionBuilder();
-        var gameBuilder = new GameBuilder(arenaBuilder, robotBuilder, instructionBuilder);
-        gameBuilder.Run();
+        var gameManager = new GameManager(arenaBuilder, robotBuilder, instructionBuilder);
+        gameManager.Run();
     }
 }

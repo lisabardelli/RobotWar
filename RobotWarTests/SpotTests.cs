@@ -1,4 +1,5 @@
-using RW.Entities.Spot;
+
+using RW.Entities;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -7,42 +8,46 @@ namespace RobotWarTests
     public class SpotTests
     {
         [Fact]
-        public void Move_ShouldChangeCoordinates()
+        public void Spot_WithPreviousSpot_ShouldCopyCoordinatesAndDirection()
         {
             // Arrange
-            var spot = new Spot(new Coordinates(1, 1), CardinalPoint.North);
+            var previousCoordinates = new Coordinates(2, 3);
+            var previousDirection = CardinalPoint.North;
+            var previousSpot = new Spot(previousCoordinates, previousDirection);
 
             // Act
-            var result = spot.Move();
+            var spot = new Spot(previousSpot);
 
             // Assert
-            Assert.Equal(2, result.Coordinates.Y);
+            Assert.Equal(previousCoordinates, spot.Coordinates);
+            Assert.Equal(previousDirection, spot.Direction);
         }
 
         [Fact]
-        public void RotateLeft_ShouldRotateLeft()
+        public void Spot_WithCoordinatesAndDirection_ShouldSetCoordinatesAndDirection()
         {
             // Arrange
-            var spot = new Spot(new Coordinates(1, 1), CardinalPoint.North);
+            var coordinates = new Coordinates(4, 5);
+            var direction = CardinalPoint.East;
 
             // Act
-            var result = spot.RotateLeft();
+            var spot = new Spot(coordinates, direction);
 
             // Assert
-            Assert.Equal(CardinalPoint.West, result);
+            Assert.Equal(coordinates, spot.Coordinates);
+            Assert.Equal(direction, spot.Direction);
         }
 
         [Fact]
-        public void RotateRight_ShouldRotateRight()
+        public void Spot_DefaultConstructor_ShouldSetCoordinatesToNull()
         {
             // Arrange
-            var spot = new Spot(new Coordinates(1, 1), CardinalPoint.North);
 
             // Act
-            var result = spot.RotateRight();
+            var spot = new Spot();
 
             // Assert
-            Assert.Equal(CardinalPoint.East, result);
+            Assert.Null(spot.Coordinates);
         }
     }
 }

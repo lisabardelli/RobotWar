@@ -1,5 +1,5 @@
 using RW.Builders;
-using RW.Entities.Spot;
+using RW.Entities;
 using Xunit;
 using Assert = Xunit.Assert;
 namespace RobotWarTests.Builders;

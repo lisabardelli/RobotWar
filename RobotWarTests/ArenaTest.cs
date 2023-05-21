@@ -1,5 +1,4 @@
 using RW.Entities;
-using RW.Entities.Spot;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -13,7 +12,7 @@ public class ArenaTests
         // Arrange
         var arena = new Arena("5");
         var coordinates = new Coordinates(2, 3);
-        arena.SquaresTaken.Add(coordinates);
+        arena.TakeSpot(coordinates);
 
         // Act
         var result = arena.IsSpotAlreadyTaken(coordinates);
