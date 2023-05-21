@@ -1,3 +1,4 @@
+using FluentValidation;
 using RW.Builders;
 using RW.Builders.Interfaces;
 using Xunit;
@@ -8,20 +9,9 @@ namespace RobotWarTests.Builders;
 public class ArenaBuilderTests
 {
     private readonly IArenaBuilder _arenaBuilder;
-
     public ArenaBuilderTests()
     {
         _arenaBuilder = new ArenaBuilder();
-    }
-
-    [Theory]
-    [InlineData("L")]
-    [InlineData("")]
-    [InlineData(" ")]
-    public void BuildArena_Should_Throw_Exception_If_Input_Is_Not_An_Integer(string topRightCorner)
-    {
-        // Assert
-        Assert.Throws<Exception>(() => _arenaBuilder.BuildArena(topRightCorner));
     }
 
     [Fact]
@@ -29,10 +19,18 @@ public class ArenaBuilderTests
     {
         // Act
         var arena = _arenaBuilder.BuildArena("5");
+
+        Assert.NotNull(arena);
+    }
+    
+    [Theory]
+    [InlineData("L")]
+    [InlineData("0")]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void BuildArena_Should_Throw_Exception_If_Input_Is_Not_An_Integer(string topRightCorner)
+    {
         // Assert
-        Assert.Equal(5, arena.TopCorner.X);
-        Assert.Equal(5, arena.TopCorner.Y);
-        Assert.Equal(0, arena.BottomCorner.X);
-        Assert.Equal(0, arena.BottomCorner.Y);
+        Assert.Throws<ArgumentException>(() => _arenaBuilder.BuildArena(topRightCorner));
     }
 }

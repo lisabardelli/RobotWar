@@ -93,12 +93,12 @@ public class Robot : IRobot
         }
 
         if (InitializedArena.IsSpotAlreadyTaken(spot.Coordinates))
-        { 
+        {
             ConsoleManager.Print("Robot cannot move further because the next spot is taken. \n" +
                                  "ROBOT POSITION: " + $"{Spot.Coordinates.X} {Spot.Coordinates.Y} {(char)Spot.Direction}");
             return false;
         }
-       
+
         return true;
 
     }

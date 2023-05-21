@@ -10,7 +10,7 @@ public class ArenaTests
     public void IsSpotAlreadyTaken_Should_Return_True_If_Square_Is_Already_Taken()
     {
         // Arrange
-        var arena = new Arena("5");
+        var arena = new Arena(5);
         var coordinates = new Coordinates(2, 3);
         arena.TakeSpot(coordinates);
 
@@ -25,7 +25,7 @@ public class ArenaTests
     public void IsSpotAlreadyTaken_Should_Return_False_If_Square_Is_Not_Taken()
     {
         // Arrange
-        var arena = new Arena("5");
+        var arena = new Arena(5);
         var coordinates = new Coordinates(2, 3);
 
         // Act
@@ -39,7 +39,7 @@ public class ArenaTests
     public void IsSpotInsideArena_Should_Return_True_If_Coordinates_Are_Inside_Arena()
     {
         // Arrange
-        var arena = new Arena("5");
+        var arena = new Arena(5);
 
         // Act
         var result = arena.IsSpotInsideArena(new Coordinates(2, 3));
@@ -52,7 +52,7 @@ public class ArenaTests
     public void IsSpotInsideArena_Should_Return_False_If_Coordinates_Are_Outside_Arena()
     {
         // Arrange
-        var arena = new Arena("5");
+        var arena = new Arena(5);
 
         // Act
         var result = arena.IsSpotInsideArena(new Coordinates(6, 7));
@@ -62,9 +62,36 @@ public class ArenaTests
     }
 
     [Fact]
-    public void Arena_Should_Throw_Exception_If_Input_Is_Not_A_Number()
+    public void TakeSpot_When_Spot_Is_Already_Taken_ShouldThrowException()
     {
-        // Arrange, Act and Assert
-        Assert.Throws<Exception>(() => new Arena("not a number"));
+        // Arrange
+        var arena = new Arena(5);
+        var coordinates = new Coordinates(2, 3);
+        arena.TakeSpot(coordinates);
+
+        // Act and Assert
+        Assert.Throws<Exception>(() => arena.TakeSpot(coordinates));
+    }
+
+    [Fact]
+    public void TakeSpot_When_Spot_Is_Outside_Arena_ShouldThrowException()
+    {
+        // Arrange
+        var arena = new Arena(5);
+        var coordinates = new Coordinates(7, 8);
+
+        // Act and Assert
+        Assert.Throws<Exception>(() => arena.TakeSpot(coordinates));
+    }
+
+    [Fact]
+    public void RemoveSquare_When_Spot_Is_Not_Taken_ShouldThrowException()
+    {
+        // Arrange
+        var arena = new Arena(5);
+        var coordinates = new Coordinates(2, 3);
+
+        // Act and Assert
+        Assert.Throws<Exception>(() => arena.RemoveSquare(coordinates));
     }
 }

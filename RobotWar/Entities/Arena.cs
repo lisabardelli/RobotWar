@@ -3,26 +3,13 @@ namespace RW.Entities;
 public class Arena
 {
     private HashSet<Coordinates> SquaresTaken { get; } = new HashSet<Coordinates>();
-    public Coordinates BottomCorner { get; }
-    public Coordinates TopCorner { get; }
+    private Coordinates BottomCorner { get; }
+    private Coordinates TopCorner { get; }
 
-    public Arena(string topRightCorner)
+    public Arena(int topRightCorner)
     {
         BottomCorner = new Coordinates(0, 0);
-        TopCorner = CreateArenaCoordinates(topRightCorner);
-    }
-
-    private static Coordinates CreateArenaCoordinates(string topRightCorner)
-    {
-        try
-        {
-            var x = int.Parse(topRightCorner);
-            return new Coordinates(x, x);
-        }
-        catch (Exception)
-        {
-            throw new Exception("Input must be a number");
-        }
+        TopCorner = new Coordinates(topRightCorner, topRightCorner);
     }
 
     public bool IsSpotAlreadyTaken(Coordinates coordinates)
