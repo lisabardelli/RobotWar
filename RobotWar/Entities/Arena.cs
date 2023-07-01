@@ -11,7 +11,7 @@ public class Arena
         BottomCorner = new Coordinates(0, 0);
         TopCorner = new Coordinates(topRightCorner, topRightCorner);
     }
-
+    
     public bool IsSpotAlreadyTaken(Coordinates coordinates)
     {
         return SquaresTaken.Any(spot => spot.X == coordinates.X && spot.Y == coordinates.Y);

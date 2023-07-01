@@ -29,6 +29,7 @@ public class RobotTests
         Assert.Equal(1, _robot.Spot.Coordinates.X);
         Assert.Equal(3, _robot.Spot.Coordinates.Y);
         Assert.Equal(CardinalPoint.North, _robot.Spot.Direction);
+        Assert.True(_arena.IsSpotAlreadyTaken(new Coordinates(1, 3)));
     }
 
     [Fact]

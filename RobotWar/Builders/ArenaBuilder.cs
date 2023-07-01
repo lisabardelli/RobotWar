@@ -15,7 +15,6 @@ public class ArenaBuilder : IArenaBuilder
     }
     public Arena BuildArena(string topRightCorner)
     {
-
         var validationResult = _arenaValidator.Validate(topRightCorner);
 
         if (!validationResult.IsValid)

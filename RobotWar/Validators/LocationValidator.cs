@@ -20,7 +20,7 @@ public class LocationValidator : AbstractValidator<string>
         RuleFor(x => x)
             .Must(x => int.TryParse(x?.Split(' ')[1], out int result) && result > 0)
             .WithMessage("The second element of location must be an integer greater than 0.")
-            .When(x => !string.IsNullOrEmpty(x) && x.Split(' ').Length >= 3); ;
+            .When(x => !string.IsNullOrEmpty(x) && x.Split(' ').Length >= 3);
 
         RuleFor(x => x)
             .Must(x =>
