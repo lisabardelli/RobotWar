@@ -6,12 +6,12 @@ public class Arena
     private Coordinates BottomCorner { get; }
     private Coordinates TopCorner { get; }
 
-    public Arena(int topRightCorner)
+    public Arena(string topRightCorner)
     {
         BottomCorner = new Coordinates(0, 0);
-        TopCorner = new Coordinates(topRightCorner, topRightCorner);
+        TopCorner = ParseCoordinates(topRightCorner);
     }
-
+    
     public bool IsSpotAlreadyTaken(Coordinates coordinates)
     {
         return SquaresTaken.Any(spot => spot.X == coordinates.X && spot.Y == coordinates.Y);
@@ -51,5 +51,14 @@ public class Arena
         }
 
         SquaresTaken.Remove(coordinates);
+    }
+    
+    private Coordinates ParseCoordinates(string topCorner)
+    {
+        var split = topCorner.Split(' ');
+        var x = int.Parse(split[0]);
+        var y = int.Parse(split[1]);
+
+        return new Coordinates(x, y);
     }
 }

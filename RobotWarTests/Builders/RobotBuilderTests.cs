@@ -18,7 +18,7 @@ public class RobotBuilderTests
     public void BuildRobot_Should_Throw_Exception_If_Location_Is_Outside_Arena()
     {
         // Arrange
-        var arena = new Arena(5);
+        var arena = new Arena("5 5");
         var location = "6 6 N";
 
         // Act and Assert
@@ -29,7 +29,7 @@ public class RobotBuilderTests
     public void BuildRobot_Should_Throw_Exception_If_Location_Is_Already_Taken()
     {
         // Arrange
-        var arena = new Arena(5);
+        var arena = new Arena("5 5");
         arena.TakeSpot(new Coordinates(2, 3));
         var location = "2 3 N";
 
@@ -41,7 +41,7 @@ public class RobotBuilderTests
     public void BuildRobot_Should_Return_New_Robot_If_Location_Is_Valid()
     {
         // Arrange
-        var arena = new Arena(5);
+        var arena = new Arena("5 5");
         var location = "2 3 N";
 
         // Act

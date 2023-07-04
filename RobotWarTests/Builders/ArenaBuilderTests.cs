@@ -18,7 +18,7 @@ public class ArenaBuilderTests
     public void BuildArena_Should_Build_Arena()
     {
         // Act
-        var arena = _arenaBuilder.BuildArena("5");
+        var arena = _arenaBuilder.BuildArena("5 5");
 
         Assert.NotNull(arena);
     }

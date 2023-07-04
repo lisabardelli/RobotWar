@@ -15,7 +15,6 @@ public class ArenaBuilder : IArenaBuilder
     }
     public Arena BuildArena(string topRightCorner)
     {
-
         var validationResult = _arenaValidator.Validate(topRightCorner);
 
         if (!validationResult.IsValid)
@@ -23,6 +22,6 @@ public class ArenaBuilder : IArenaBuilder
             throw new ArgumentException(validationResult.Errors.First().ErrorMessage);
         }
 
-        return new Arena(int.Parse(topRightCorner));
+        return new Arena(topRightCorner);
     }
 }

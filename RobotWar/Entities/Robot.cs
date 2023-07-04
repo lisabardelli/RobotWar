@@ -1,4 +1,3 @@
-
 namespace RW.Entities;
 
 public class Robot : IRobot
