@@ -11,7 +11,7 @@ public class RobotTests
 
     public RobotTests()
     {
-        _arena = new Arena(5);
+        _arena = new Arena("5 5");
         var spot = new Spot { Coordinates = new Coordinates(1, 2), Direction = CardinalPoint.North };
         _robot = new Robot(ref _arena, spot);
     }

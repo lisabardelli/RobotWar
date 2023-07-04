@@ -17,7 +17,7 @@ public class GameManagerTests
         var instructionBuilder = new InstructionBuilder();
 
         // Act
-        var arena = arenaBuilder.BuildArena("5");
+        var arena = arenaBuilder.BuildArena("5 5");
         var robot1 = robotBuilder.BuildRobot(arena, "1 2 N");
         var instruction1 = instructionBuilder.BuildInstruction("LMLMLMLMM");
         robot1.ChangeSpot(instruction1);

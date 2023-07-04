@@ -69,4 +69,47 @@ public class GameManager
             }
         }
     }
+
+    /*public void Run()
+    {
+        var arena = BuilderFactory.BuildObject("Enter top right corner of the arena",
+            input => _arenaBuilder.BuildArena(input));
+        var robot1 = BuilderFactory.BuildObject("Enter X, Y and direction for the Robot 1",
+            input => _robotBuilder.BuildRobot(arena, input));
+        var instruction1 = BuilderFactory.BuildObject("Enter navigation instruction for Robot 1",
+            input => _instructionBuilder.BuildInstruction(input));
+
+        robot1.ChangeSpot(instruction1);
+
+        var robot2 = BuilderFactory.BuildObject("Enter X, Y and direction for the Robot 2",
+            input => _robotBuilder.BuildRobot(arena, input));
+        var instruction2 = BuilderFactory.BuildObject("Enter navigation instruction for Robot 2",
+            input => _instructionBuilder.BuildInstruction(input));
+
+        robot2.ChangeSpot(instruction2);
+
+    }
+    
+}*/
+
+/*public class BuilderFactory
+{
+
+    public static T BuildObject<T>(string promptMessage, Func<string, T> builder) where T : class?
+    {
+        while (true)
+        {
+            try
+            {
+                var input = ConsoleManager.ReadUserInput(promptMessage);
+                var obj = builder(input);
+                if (obj == null) continue;
+                return obj;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Invalid Input: {e.Message}");
+            }
+        }
+    }*/
 }

@@ -14,8 +14,8 @@ public class ArenaValidatorTests
     }
 
     [Theory]
-    [InlineData("123")]
-    [InlineData("456")]
+    [InlineData("123 45")]
+    [InlineData("456 78")]
     public void Validate_ShouldPass_WhenInputIsValid(string input)
     {
         // Act
@@ -52,34 +52,41 @@ public class ArenaValidatorTests
 
         // Assert
         Assert.False(result.IsValid);
-        Assert.Equal("Input cannot be empty.", result.Errors[0].ErrorMessage);
+        Assert.Equal("Input must contain two elements.", result.Errors[0].ErrorMessage);
     }
 
-    [Fact]
-    public void Validate_WhenInputIsNotValidInteger_ShouldHaveValidationErrorMessage()
+    [Theory]
+    [InlineData("abc 5")]
+    [InlineData("0 5")]
+    [InlineData("5.5 5")]
+    [InlineData("-5 5")]
+    [InlineData("-5 -5")]
+    public void Validate_WhenFirstInputIsNotValidInteger_ShouldHaveValidationErrorMessage(string input)
     {
         // Arrange
-        var input = "abc";
 
         // Act
         var result = _validator.Validate(input);
 
         // Assert
         Assert.False(result.IsValid);
-        Assert.Equal("Input must be a valid integer and greater than 0.", result.Errors[0].ErrorMessage);
+        Assert.Equal("The right coordinate of the top corner of the Arena must be an integer greater than 0.", result.Errors[0].ErrorMessage);
     }
 
-    [Fact]
-    public void Validate_WhenInputIsNotGreaterThanZero_ShouldHaveValidationErrorMessage()
+    [Theory]
+    [InlineData("5 abc")]
+    [InlineData("5 0")]
+    [InlineData("5 5.5")]
+    [InlineData("5 -5")]
+    public void Validate_WhenSecondInputIsNotValidInteger_ShouldHaveValidationErrorMessage(string input)
     {
         // Arrange
-        var input = "0";
 
         // Act
         var result = _validator.Validate(input);
 
         // Assert
         Assert.False(result.IsValid);
-        Assert.Equal("Input must be a valid integer and greater than 0.", result.Errors[0].ErrorMessage);
+        Assert.Equal("The left coordinate of the top corner of the Arena must be an integer greater than 0.", result.Errors[0].ErrorMessage);
     }
 }

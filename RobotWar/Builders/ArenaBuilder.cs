@@ -22,6 +22,6 @@ public class ArenaBuilder : IArenaBuilder
             throw new ArgumentException(validationResult.Errors.First().ErrorMessage);
         }
 
-        return new Arena(int.Parse(topRightCorner));
+        return new Arena(topRightCorner);
     }
 }
